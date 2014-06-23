@@ -1,0 +1,5 @@
+imports:
+  - { resource: conf4_2.yml }
+ports:
+  9999:
+    class: Services\Reader1

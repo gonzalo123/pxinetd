@@ -1,0 +1,24 @@
+{
+    "name": "gonzalo123/pxinetd",
+    "description": "PHP eXtended InterNET Daemon",
+    "authors": [
+        {
+            "name": "Gonzalo Ayuso",
+            "email": "gonzalo123@gmail.com"
+        }
+    ],
+    "require": {
+        "cboden/ratchet": "dev-master",
+        "symfony/yaml": "2.4.*@dev",
+        "symfony/config": "2.3.*@dev",
+        "symfony/event-dispatcher": "2.5.*@dev"
+    },
+    "require-dev": {
+        "silex/silex": "1.2.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
