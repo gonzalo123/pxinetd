@@ -8,6 +8,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Silex\Application;
 use React\EventLoop;
 use G\Pxi\Events;
+use React\EventLoop\StreamSelectLoop;
 
 class Pxinetd
 {
@@ -16,10 +17,10 @@ class Pxinetd
     private $address;
     private $dispatcher;
 
-    public function __construct($address)
+    public function __construct($address, EventDispatcher $dispatcher = null)
     {
         $this->address    = $address;
-        $this->dispatcher = new EventDispatcher();
+        $this->dispatcher = is_null($dispatcher) ? new EventDispatcher() : $dispatcher;
     }
 
     public function getDispatcher()
@@ -32,10 +33,13 @@ class Pxinetd
         $this->ports[$port] = $callback;
     }
 
-    public function run()
+    public function getPorts()
     {
-        $loop = LoopFactory::create();
+        return array_keys($this->ports);
+    }
 
+    public function register(StreamSelectLoop $loop)
+    {
         foreach ($this->ports as $port => $callback) {
             $socket = new Reactor($loop);
             $socket->listen($port, $this->address);
@@ -46,8 +50,6 @@ class Pxinetd
         echo "ports: " . implode(', ', array_keys($this->ports)) . "\n";
 
         $this->registerListeners();
-
-        $loop->run();
     }
 
     private function registerListeners()

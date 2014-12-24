@@ -38,12 +38,12 @@ class YamlFileLoader extends FileLoader
                 } elseif (isset($value['url'])) {
                     $this->server->on($port, function ($data, Connection $conn) use ($value) {
                         $client = new Client();
-                        $url = $value['url'];
-                        $url = str_replace('{data}', trim($data), $url);
-                        $url = trim(str_replace('{ipFrom}', $conn->getRemoteAddress(), $url));
+                        $url    = $value['url'];
+                        $url    = str_replace('{data}', trim($data), $url);
+                        $url    = trim(str_replace('{ipFrom}', $conn->getRemoteAddress(), $url));
 
                         $conn->close();
-                        $response = $client->get($url)->send();
+                        $response   = $client->get($url)->send();
                         $statusCode = $response->getStatusCode();
 
                         if ($statusCode != 200) {
@@ -100,7 +100,7 @@ class YamlFileLoader extends FileLoader
         }
 
         foreach (array_keys($content) as $namespace) {
-            if (in_array($namespace, array('imports', 'ports'))) {
+            if (in_array($namespace, ['imports', 'ports'])) {
                 continue;
             }
         }

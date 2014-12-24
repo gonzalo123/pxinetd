@@ -4,7 +4,9 @@ include __DIR__ . '/../vendor/autoload.php';
 
 use G\Pxi\Pxinetd;
 use G\Pxi\Connection;
+use React\EventLoop\Factory as LoopFactory;
 
+$loop = LoopFactory::create();
 $service = new Pxinetd('0.0.0.0');
 
 $service->on(8080, function ($data) {
@@ -18,4 +20,5 @@ $service->on(8088, function ($data, Connection $conn) {
     $conn->close();
 });
 
-$service->run();
+$service->register($loop);
+$loop->run();

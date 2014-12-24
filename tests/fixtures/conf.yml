@@ -1,0 +1,7 @@
+ports:
+  9999:
+    class: Reader1
+  9991:
+    url: http://localhost:8899/onMessage/{data}
+  9992:
+    url: http://localhost:8899/simulateError/{data}
