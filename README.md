@@ -65,7 +65,8 @@ $service->register($loop);
 $loop->run();
 ```
 
-```bash
+conf3.yml
+```
   9999:
     class: Services\Reader1
 ```
